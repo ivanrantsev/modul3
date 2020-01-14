@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="container">
+                <ul class="navmenu">
+                    <li @click="content = 'product'" class="navmenu-item">Каталог</li>
+                    <li @click="content = 'user'" class="navmenu-item">Пользователь</li class="navmenu-item">
+                    <li @click="content = 'contacts'" class="navmenu-item">Контакты</li class="navmenu-item">
+                </ul>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <div class="product" v-if="content==='product'">
+                    <h3 v-text='product.title'></h3>
+                    <figure>
+                        <img v-bind:src="product.image">
+                    </figure>
+                    <h3>Цена: {{product.price | formatPrice}}</h3>
+                    <p class="description" v-html="product.description"></p>
+                    <ul class="specifications" v-if="product.specifications">
+                        <li>ОС: {{product.OS}}</li>
+                        <li>Разрешение экрана: {{product.displayResolution}}</li>
+                        <li>Процессор: {{product.CPU}}</li>
+                        <li>ОЗУ: {{product.RAM}}</li>
+                        <li>Жесткий диск: {{product.storageDevice}}</li>
+                        <li>Графика: {{product.grapfics}}</li>
+                    </ul>
+                    <button @click="product.specifications = !product.specifications">{{product.specifications ? "Скрыть" : "Показать"}} характеристики</button>
+                </div>
+                <div class="user" v-else-if="content==='user'">
+                    <div>
+                        <img v-bind:src="user.image">
+                    </div>
+                    <div>
+                        <p>{{user.firstname}} {{user.lastname}}</p>
+                        <p>age: {{user.age}}</p>
+                        <p>country: {{user.country}}</p>
+                    </div>
+                </div>
+                <div class="contacts" v-else-if="content==='contacts'">
+                    <a v-bind:href="'tel:' + contacts.tel">{{contacts.tel}}</a>
+                    <a v-bind:href="'mailto:' + contacts.mail">{{contacts.mail}}</a>
+                    <a>{{contacts.address}}</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
